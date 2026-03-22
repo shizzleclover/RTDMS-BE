@@ -49,8 +49,8 @@ const updateStatusValidator = [
   body('status')
     .notEmpty()
     .withMessage('Status is required')
-    .isIn(['in-transit', 'delivered'])
-    .withMessage('Status must be in-transit or delivered'),
+    .isIn(['picked_up', 'in_transit', 'delivered'])
+    .withMessage('Status must be picked_up, in_transit, or delivered'),
   validate,
 ];
 

@@ -32,15 +32,15 @@ const UserSchema = new mongoose.Schema(
     },
     phone: {
       type: String,
-      required: [true, 'Please add a phone number'],
+      required: false, // Made optional for easier seeding
     },
     isAvailable: {
       type: Boolean,
       default: true,
     },
     currentLocation: {
-      lat: { type: Number },
-      lng: { type: Number },
+      type: { type: String, enum: ['Point'], default: 'Point' },
+      coordinates: { type: [Number] } // [lng, lat]
     },
   },
   {

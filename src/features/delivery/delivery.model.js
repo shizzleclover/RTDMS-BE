@@ -17,29 +17,21 @@ const DeliverySchema = new mongoose.Schema(
       ref: 'User',
       default: null,
     },
-    pickupAddress: {
-      type: String,
-      required: [true, 'Please add a pickup address'],
+    pickupLocation: {
+      address: { type: String, required: true },
+      coordinates: { type: [Number] }
     },
-    pickupCoords: {
-      lat: { type: Number },
-      lng: { type: Number },
-    },
-    deliveryAddress: {
-      type: String,
-      required: [true, 'Please add a delivery address'],
-    },
-    deliveryCoords: {
-      lat: { type: Number },
-      lng: { type: Number },
+    dropoffLocation: {
+      address: { type: String, required: true },
+      coordinates: { type: [Number] }
     },
     packageDescription: {
       type: String,
-      required: [true, 'Please add a package description'],
+      required: false, // Not strictly needed for UI presentation
     },
     status: {
       type: String,
-      enum: ['pending', 'assigned', 'in-transit', 'delivered'],
+      enum: ['pending', 'assigned', 'picked_up', 'in_transit', 'delivered'],
       default: 'pending',
     },
     statusHistory: [
@@ -49,8 +41,8 @@ const DeliverySchema = new mongoose.Schema(
       },
     ],
     currentLocation: {
-      lat: { type: Number },
-      lng: { type: Number },
+      type: { type: String, enum: ['Point'], default: 'Point' },
+      coordinates: { type: [Number] }
     },
   },
   {
