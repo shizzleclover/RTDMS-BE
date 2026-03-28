@@ -23,17 +23,17 @@ const seedDatabase = async () => {
     await Delivery.deleteMany({});
     console.log(' Cleared existing data.');
 
-    // Create Admin
+    // Create Dispatcher (Admin role)
     const admin = await User.create({
-      name: 'Super Admin',
+      name: 'Head Dispatcher',
       email: 'admin@rtdms.com',
       password: 'password123',
       role: 'admin'
     });
 
-    // Create Rider
+    // Create Delivery Agent (Rider role)
     const rider = await User.create({
-      name: 'Fast Rider',
+      name: 'Field Agent Ade',
       email: 'rider@rtdms.com',
       password: 'password123',
       role: 'rider',
@@ -43,48 +43,51 @@ const seedDatabase = async () => {
       }
     });
 
-    // Create Customer
+    // Create Farmer (Customer role)
     const customer = await User.create({
-      name: 'John Customer',
+      name: 'Farmer Bola',
       email: 'customer@rtdms.com',
       password: 'password123',
       role: 'customer'
     });
 
     console.log(` Created 3 Users. Credentials:
-      Admin: admin@rtdms.com / password123
-      Rider: rider@rtdms.com / password123
-      Customer: customer@rtdms.com / password123
+      Dispatcher: admin@rtdms.com / password123
+      Delivery Agent: rider@rtdms.com / password123
+      Farmer: customer@rtdms.com / password123
     `);
 
-    // Create Deliveries
+    // Create Deliveries with agricultural produce context
     await Delivery.create([
       {
         trackingId: generateTrackingId(),
-        pickupLocation: { address: 'Warehouse A, Ikeja (Lagos)', coordinates: [3.3333, 6.6018] },
-        dropoffLocation: { address: 'Victoria Island, Lagos', coordinates: [3.4219, 6.4281] },
+        pickupLocation: { address: 'Oke-Odo Farm Settlement, Ikeja (Lagos)', coordinates: [3.3333, 6.6018] },
+        dropoffLocation: { address: 'Mile 12 Market, Lagos', coordinates: [3.4219, 6.4281] },
+        packageDescription: 'Fresh tomatoes (20 baskets) — High perishability',
         customer: customer._id,
         status: 'pending'
       },
       {
         trackingId: generateTrackingId(),
-        pickupLocation: { address: 'Lekki Phase 1', coordinates: [3.4667, 6.4381] },
-        dropoffLocation: { address: 'Yaba, Lagos', coordinates: [3.3764, 6.5095] },
+        pickupLocation: { address: 'Epe Fish Farm, Lekki', coordinates: [3.4667, 6.4381] },
+        dropoffLocation: { address: 'Oyingbo Market, Yaba', coordinates: [3.3764, 6.5095] },
+        packageDescription: 'Fresh catfish (15 crates) — Medium perishability',
         customer: customer._id,
         rider: rider._id,
         status: 'in_transit'
       },
       {
         trackingId: generateTrackingId(),
-        pickupLocation: { address: 'Ikeja City Mall', coordinates: [3.3582, 6.6139] },
-        dropoffLocation: { address: 'Surulere, Lagos', coordinates: [3.3486, 6.5000] },
+        pickupLocation: { address: 'Agege Vegetable Farm, Ikeja', coordinates: [3.3582, 6.6139] },
+        dropoffLocation: { address: 'Balogun Market, Surulere', coordinates: [3.3486, 6.5000] },
+        packageDescription: 'Leafy greens and yams (mixed produce) — Low perishability',
         customer: customer._id,
         rider: rider._id,
         status: 'delivered'
       }
     ]);
 
-    console.log(' Created Dummy Deliveries.');
+    console.log(' Created Agricultural Produce Deliveries.');
     console.log(' Seeding Complete!');
     process.exit(0);
   } catch (error) {

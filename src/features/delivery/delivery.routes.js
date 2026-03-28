@@ -85,7 +85,7 @@ router.use(protect);
  * @swagger
  * /api/deliveries/my-deliveries:
  *   get:
- *     summary: Get customer's own deliveries
+ *     summary: Get farmer's own deliveries
  *     tags: [Deliveries]
  *     security:
  *       - bearerAuth: []
@@ -109,7 +109,7 @@ router.use(protect);
  *       401:
  *         description: Not authorized
  *       403:
- *         description: Customer role required
+ *         description: Farmer role required
  */
 router.get('/my-deliveries', authorize('customer'), getMyDeliveries);
 
@@ -117,7 +117,7 @@ router.get('/my-deliveries', authorize('customer'), getMyDeliveries);
  * @swagger
  * /api/deliveries/rider-deliveries:
  *   get:
- *     summary: Get rider's assigned deliveries
+ *     summary: Get delivery agent's assigned deliveries
  *     tags: [Deliveries]
  *     security:
  *       - bearerAuth: []
@@ -141,7 +141,7 @@ router.get('/my-deliveries', authorize('customer'), getMyDeliveries);
  *       401:
  *         description: Not authorized
  *       403:
- *         description: Rider role required
+ *         description: Delivery Agent role required
  */
 router.get('/rider-deliveries', authorize('rider'), getRiderDeliveries);
 
@@ -149,7 +149,7 @@ router.get('/rider-deliveries', authorize('rider'), getRiderDeliveries);
  * @swagger
  * /api/deliveries/{id}/status:
  *   put:
- *     summary: Update delivery status (Rider only)
+ *     summary: Update delivery status (Delivery Agent only)
  *     tags: [Deliveries]
  *     security:
  *       - bearerAuth: []
@@ -196,7 +196,7 @@ router.put('/:id/status', authorize('rider'), updateStatusValidator, updateStatu
  * @swagger
  * /api/deliveries:
  *   post:
- *     summary: Create a new delivery (Admin only)
+ *     summary: Create a new delivery (Dispatcher only)
  *     tags: [Deliveries]
  *     security:
  *       - bearerAuth: []
@@ -258,7 +258,7 @@ router.put('/:id/status', authorize('rider'), updateStatusValidator, updateStatu
  *       400:
  *         description: Validation error
  *       403:
- *         description: Admin role required
+ *         description: Dispatcher role required
  */
 router.post('/', authorize('admin'), createDeliveryValidator, createDelivery);
 
@@ -266,7 +266,7 @@ router.post('/', authorize('admin'), createDeliveryValidator, createDelivery);
  * @swagger
  * /api/deliveries:
  *   get:
- *     summary: Get all deliveries with pagination (Admin only)
+ *     summary: Get all deliveries with pagination (Dispatcher only)
  *     tags: [Deliveries]
  *     security:
  *       - bearerAuth: []
@@ -319,7 +319,7 @@ router.get('/', authorize('admin'), getDeliveries);
  * @swagger
  * /api/deliveries/{id}/assign:
  *   put:
- *     summary: Assign a rider to a delivery (Admin only)
+ *     summary: Assign a delivery agent to a delivery (Dispatcher only)
  *     tags: [Deliveries]
  *     security:
  *       - bearerAuth: []
@@ -366,7 +366,7 @@ router.put('/:id/assign', authorize('admin'), assignRiderValidator, assignRider)
  * @swagger
  * /api/deliveries/{id}:
  *   get:
- *     summary: Get a single delivery (Admin or assigned Rider)
+ *     summary: Get a single delivery (Dispatcher or assigned Delivery Agent)
  *     tags: [Deliveries]
  *     security:
  *       - bearerAuth: []

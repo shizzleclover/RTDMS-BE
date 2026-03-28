@@ -8,7 +8,7 @@ const { authorize } = require('../../common/middleware/role.middleware');
  * @swagger
  * tags:
  *   name: Users
- *   description: User management (Admin only)
+ *   description: User management (Dispatcher only) — manage Farmers and Delivery Agents
  */
 
 router.use(protect);
@@ -50,7 +50,7 @@ router.get('/', getUsers);
  * @swagger
  * /api/users/riders:
  *   get:
- *     summary: Get all riders with availability status
+ *     summary: Get all delivery agents with availability status
  *     tags: [Users]
  *     security:
  *       - bearerAuth: []

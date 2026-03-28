@@ -7,7 +7,7 @@ const options = {
       title: 'RTDMS API',
       version: '1.0.0',
       description:
-        'Real-Time Delivery Management System — REST API documentation. Supports Admin, Rider, and Customer roles with JWT authentication and real-time WebSocket tracking.',
+        'Real-Time Farm-to-Market Delivery Management System for Perishable Agricultural Produce — REST API documentation. Supports Dispatcher, Delivery Agent, and Farmer roles with JWT authentication and real-time WebSocket tracking.',
       contact: {
         name: 'Pelumi',
       },
